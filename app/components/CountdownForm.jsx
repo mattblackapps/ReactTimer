@@ -5,12 +5,13 @@ var CountdownForm = React.createClass({
     e.preventDefault();
     var strSeconds = this.refs.seconds.value;
 
-    console.log('input count', $('input').length);
+    if (strSeconds.match(/^[0-9]*$/)) { // value is valid
+      this.refs.seconds.value = ''; // Clear the form
 
-    if (strSeconds.match(/^[0-9]*$/)) {
-      this.refs.seconds.value = '';
+      var seconds = parseInt(strSeconds, 10);
+      seconds = Math.min(seconds, 5999); // Limit the input to 99 minutes and 59 seconds
 
-      this.props.onSetCountdown(parseInt(strSeconds, 10));
+      this.props.onSetCountdown(seconds); // Call to parent
     }
   },
 
